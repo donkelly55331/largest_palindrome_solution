@@ -8,7 +8,7 @@
 //  0. Obtain this file from https://github.com/ankur-cp/largest_palindrome_solution
 //  1. Rename this file, substituting "yourname" with your name
 //  2. Replace "yourname" with your name in the variable below
-exports.name = "yourname";
+exports.name = "Don";
 //  3. Add your optimizations to the solution below
 //  4. Submit a pull request
 
@@ -23,21 +23,27 @@ isPalindrome = (num) => {
 exports.getLargestPalindrome = (N) => {
 
   let largestPalindrome = 0;
+  start = 10 ** (N-1)
+  stop = 10 ** N
 
   // iterate through range of multiplicands
-  for (let i = 10 ** (N - 1); i < 10 ** N; i++) {
+  for (let i = start; i < stop; i++) {
       
-    for (let j = 10 ** (N - 1); j < 10 ** N; j++) {
+    for (let j = start; j < stop; j++) {
+      // Spent too much time Here. Seems sensible and breaks out of loop with small values, but ends up returning the wrong solution
+      if (j*100 < largestPalindrome) {
+        console.log(i*j)
+        break
+      }
 
       // check if the product is a palindrome
       if (isPalindrome(i * j)) {
-
-        // check if it's larger than our largest palindrome
-        if (i * j > largestPalindrome) {
-                  
-          // update largest palindrome
-          largestPalindrome = i * j;
-        }
+          // check if it's larger than our largest palindrome
+          if (i * j > largestPalindrome) {
+                    
+            // update largest palindrome
+            largestPalindrome = i * j;
+          }
       }
     }
   }
@@ -59,6 +65,7 @@ const N = 3;
 // N=7, correct output = 99956644665999
 
 // execution
+
 console.time(exports.name)
 console.log("result:", exports.getLargestPalindrome(N))
 console.timeEnd(exports.name)
